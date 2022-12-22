@@ -53,17 +53,36 @@ function playRound(playerSelection, computerSelection) {
 function game(){
     let playerscore = 0;
     let computerscore = 0;
+    
 
     let playerSelection = getComputerChoice();
     let computerSelection = getComputerSelection();
 
     for (i=0; i<5;i++){
 
-        let roundResult = playRound(playerSelection, computerSelection)
+        let playResult = playRound(playerSelection, computerSelection)
+
+        if (playResult == 1){
+            playerscore++;
+        }else if(playResult==-1){
+            computerscore++;
+        }
         
     }
 
+    checkWinner(playerscore, computerscore);
 
 
+
+}
+
+function checkWinner(playerscore, computerscore) {
+    if (playerscore > computerscore) {
+        console.log("You are the winner");
+    } else if (computerscore > playerscore) {
+        console.log("The computer wins! You lose!");
+    } else {
+        console.log("Draw");
+    }
 }
 
