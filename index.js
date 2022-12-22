@@ -54,10 +54,10 @@ function game(){
     let computerscore = 0;
     
 
-    let playerSelection = getComputerChoice();
-    let computerSelection = getComputerSelection();
-
     for (i=0; i<5;i++){
+
+        let playerSelection = getPlayerChoice();
+        let computerSelection = getComputerSelection();
 
         let playResult = playRound(playerSelection, computerSelection)
 
@@ -70,6 +70,7 @@ function game(){
     }
 
     checkWinner(playerscore, computerscore);
+    console.log(`Player ${playerscore}: ${computerscore} Computer`);
 
 }
 
