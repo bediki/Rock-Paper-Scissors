@@ -25,7 +25,10 @@ function capitalizeFirstLetter(word){
     return word.charAt(0).toUpperCase()+word.slice(1);
 }
 
+// This function is a round played where the win choices of the player are considered and a draw
+// The rest are lost rounds.
 function playRound(playerSelection, computerSelection) {
+
 
     if(playerSelection==computerSelection){
         console.log("Draw! Nobody wins");
@@ -53,12 +56,11 @@ function game(){
     let playerscore = 0;
     let computerscore = 0;
     
-
+    //Play five rounds
     for (i=0; i<5;i++){
 
-        let playerSelection = getPlayerChoice();
         let computerSelection = getComputerSelection();
-
+        let playerSelection = getPlayerChoice();
         let playResult = playRound(playerSelection, computerSelection)
 
         if (playResult == 1){
@@ -66,6 +68,8 @@ function game(){
         }else if(playResult==-1){
             computerscore++;
         }
+
+    console.log(`Player ${playerscore}: ${computerscore} Computer`);
         
     }
 
@@ -74,6 +78,7 @@ function game(){
 
 }
 
+// Check wether player or computer won the game
 function checkWinner(playerscore, computerscore) {
     if (playerscore > computerscore) {
         console.log("You are the winner");
