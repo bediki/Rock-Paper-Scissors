@@ -49,7 +49,6 @@ function playRound(playerSelection, computerSelection) {
   }
 
 
-
 function game(){
     let playerscore = 0;
     let computerscore = 0;
@@ -72,8 +71,6 @@ function game(){
 
     checkWinner(playerscore, computerscore);
 
-
-
 }
 
 function checkWinner(playerscore, computerscore) {
@@ -86,3 +83,4 @@ function checkWinner(playerscore, computerscore) {
     }
 }
 
+game();
