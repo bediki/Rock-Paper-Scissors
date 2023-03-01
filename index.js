@@ -1,82 +1,85 @@
+
+let buttons = document.querySelectorAll('button');
+const container = document.querySelector('#container');
+let playerscore = 0 ;
+let computerscore = 0;
+
+buttons.forEach((button)=>{
+    button.addEventListener('click', () =>{
+        playerSelection = getPlayerChoice(button);
+        game(playerSelection);
+    })
+});
+
+function getPlayerChoice(button){
+    if(button.id=='btn_rock') return 'Rock';
+    if(button.id=='btn_paper') return 'Paper';
+    if (button.id == 'btn_scissors') return 'Scissors';
+}
+
+function game(){
+    let computerSelection = getComputerSelection();
+    let playResult = playRound(playerSelection, computerSelection)
+
+    let result = document.querySelector('#decision');
+    result.textContent = `Player chose ${playerSelection} - Computer chose ${computerSelection} `;
+
+
+    if (playResult == 1){
+        playerscore++;
+    }else if(playResult==-1){
+        computerscore++;
+    }
+
+    update_score();
+    /* checkWinner(playerscore, computerscore); */
+}
+
+
+function update_score() {
+    let result = document.querySelector('#results');
+    result.textContent = `Player ${playerscore}: ${computerscore} Computer`;
+}
+
 function getComputerSelection() {
-    
-    const choice_list = ["rock", "paper", "scissor"];
+    const choice_list = ["Rock", "Paper", "Scissors"];
     let computerSelection = choice_list[Math.floor(Math.random() * 3) + 0];
-    console.log(computerSelection);
     return computerSelection
 }
 
-function getPlayerChoice(){
-
-    const choice_list = ["rock", "paper", "scissor"];
-
-    let playerChoice = prompt("Please choose: Rock-Paper-Scissor=?").toLowerCase()
 
 
-    if (choice_list.includes(playerChoice)) {
-        console.log(playerChoice);
-        return playerChoice;
-    }
-
-    return getPlayerChoice();
-}
-
-function capitalizeFirstLetter(word){
-    return word.charAt(0).toUpperCase()+word.slice(1);
-}
 
 // This function is a round played where the win choices of the player are considered and a draw
 // The rest are lost rounds.
 function playRound(playerSelection, computerSelection) {
 
+    const round = document.querySelector('#round');
+
 
     if(playerSelection==computerSelection){
-        console.log("Draw! Nobody wins");
+        round.textContent =  `Draw! Nobody wins`;
         return 0
     }
 
-    if(playerSelection=="scissor" && computerSelection == "paper"){
-        console.log("You win! Scissor beats Paper");
+    if(playerSelection=="Scissors" && computerSelection == "Paper"){
+        round.textContent =  "You win! Scissor beats Paper";
         return 1;
-    }else if(playerSelection=="rock" && computerSelection == "scissor"){
-        console.log("You win! Rock beats Scissor");
+    }else if(playerSelection=="Rock" && computerSelection == "Scissors"){
+        round.textContent =  "You win! Rock beats Scissors";
         return 1;
-    }else if(playerSelection=="paper" && computerSelection == "rock"){
-        console.log("You win! Paper beats Rock");
+    }else if(playerSelection=="Paper" && computerSelection == "Rock"){
+        round.textContent =  "You win! Paper beats Rock";
         return 1;
     }else{
-        console.log(`You Lose!${capitalizeFirstLetter(computerSelection)} beats ${capitalizeFirstLetter(playerSelection)}.`) ;     
+        round.textContent =  `You Lose!${computerSelection} beats ${playerSelection}.` ;     
         return -1
     }
     
   }
 
 
-function game(){
-    let playerscore = 0;
-    let computerscore = 0;
-    
-    //Play five rounds
-    for (i=0; i<5;i++){
 
-        let computerSelection = getComputerSelection();
-        let playerSelection = getPlayerChoice();
-        let playResult = playRound(playerSelection, computerSelection)
-
-        if (playResult == 1){
-            playerscore++;
-        }else if(playResult==-1){
-            computerscore++;
-        }
-
-    console.log(`Player ${playerscore}: ${computerscore} Computer`);
-        
-    }
-
-    checkWinner(playerscore, computerscore);
-    console.log(`Player ${playerscore}: ${computerscore} Computer`);
-
-}
 
 // Check wether player or computer won the game
 function checkWinner(playerscore, computerscore) {
@@ -89,4 +92,6 @@ function checkWinner(playerscore, computerscore) {
     }
 }
 
-game();
+
+
+
