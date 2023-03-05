@@ -1,6 +1,10 @@
 
 let buttons = document.querySelectorAll('button');
-const container = document.querySelector('#container');
+let container = document.querySelector('#container');
+let decisions = document.querySelector('#decision');
+let round = document.querySelector('#round');
+let results = document.querySelector('#results');
+
 let playerscore = 0 ;
 let computerscore = 0;
 
@@ -20,25 +24,21 @@ function getPlayerChoice(button){
 function game(){
     let computerSelection = getComputerSelection();
     let playResult = playRound(playerSelection, computerSelection)
-
-    let result = document.querySelector('#decision');
-    result.textContent = `Player chose ${playerSelection} - Computer chose ${computerSelection} `;
-
+    decisions.textContent = `Player chose ${playerSelection} - Computer chose ${computerSelection} `;
 
     if (playResult == 1){
         playerscore++;
     }else if(playResult==-1){
         computerscore++;
     }
-
     update_score();
-    /* checkWinner(playerscore, computerscore); */
+    checkWinner(playerscore,computerscore)
+
 }
 
 
 function update_score() {
-    let result = document.querySelector('#results');
-    result.textContent = `Player ${playerscore}: ${computerscore} Computer`;
+    results.textContent = `Player ${playerscore}: ${computerscore} Computer`;
 }
 
 function getComputerSelection() {
@@ -54,7 +54,7 @@ function getComputerSelection() {
 // The rest are lost rounds.
 function playRound(playerSelection, computerSelection) {
 
-    const round = document.querySelector('#round');
+
 
 
     if(playerSelection==computerSelection){
@@ -81,15 +81,27 @@ function playRound(playerSelection, computerSelection) {
 
 
 
-// Check wether player or computer won the game
+// Check wether player or computer won the game comment
 function checkWinner(playerscore, computerscore) {
-    if (playerscore > computerscore) {
-        console.log("You are the winner");
-    } else if (computerscore > playerscore) {
+    if (playerscore == 5) {
+
+        results.textContent = `You win! Final score is: Player ${playerscore} -  Computer ${computerscore}`
+        resetscore();
+ 
+    } else if (computerscore == 5) {
         console.log("The computer wins! You lose!");
-    } else {
-        console.log("Draw");
-    }
+        results.textContent = `Computer wins! Final score is Player ${playerscore} - Computer ${computerscore}`
+        resetscore();
+    } 
+}
+
+function resetscore(){
+    playerscore = 0;
+    computerscore = 0;
+    decisions.textContent = ""
+    round.textContent = ""
+    
+
 }
 
 
